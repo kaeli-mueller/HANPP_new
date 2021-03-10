@@ -1,0 +1,36 @@
+---
+title: "eBird_data"
+author: "Kaeli Mueller"
+date: "2/2/2021"
+output: html_document
+---
+
+```{r}
+#get all the packages and library ready
+
+#update R
+#install.packages("installr")
+#library(installr)
+#updateR()
+
+#install.packages("remotes")
+#remotes::install_github("mstrimas/ebppackages")
+
+#install.packages("ebirdst")
+#install.packages("rebird")
+#install.packages("Rtools")
+#install.packages("naturalearth")
+
+library(ebirdst)
+library(rebird)
+library(raster)
+library(sf)
+library(rnaturalearth)
+library(ggplot2)
+library(viridisLite)
+library(dplyr)
+library(tidyverse)
+library(rnaturalearth)
+
+```
+

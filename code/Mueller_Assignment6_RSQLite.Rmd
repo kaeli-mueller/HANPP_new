@@ -1,0 +1,50 @@
+---
+title: "Assignment 6"
+author: "Kaeli Mueller"
+date: "3/1/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+setwd("C:/Users/Kaeli/Documents/Computational_Methods/")
+
+getwd()
+```
+
+For my project I made an SQL database through SQL lite. I wanted to make this project relevant to the research that I will be doing for my thesis. However, my project is still very much in the beginning stages and I don't have all the data gathered for it yet. So what I did was make a database with 3 tables structured the way that I thought would be useful. I will eventually be making some bar graphs from the HANPP_master spreadsheet, and later on I want to do an analysis with variables in each county. That is why I chose State_county to be the primary key.
+
+```{r image, echo = FALSE, fig.align = "center", fig.cap = "Schema for my database", out.width = '30%'}
+knitr::include_graphics("C:/Users/Kaeli/Documents/Computational_Methods/Screenshot_database_schema.jpg")
+```
+
+The packages I need are `RSQLite` and `DBI`
+```{r packages}
+#install.packages("RSQLite")
+#prepare libraries
+library(DBI)
+library(RSQLite)
+
+```
+
+Establish database connection. We can do this once we have constructed a functioning database in SQL. My database is currently empty, but the table structure is all there. 
+```{r}
+HANPP_db <- dbConnect(drv = RSQLite::SQLite(),                   
+                      "C:/Users/Kaeli/Documents/Computational_Methods/HANPP_database.db")
+
+DBI::dbWriteTable(conn = HANPP_db, name = "HANPP_main")
+```
+
+Being able to properly access my database in R has been challenging and R has not yet been successfully able to do it. Full database coming soon...
+```{r, eval = FALSE, echo=TRUE}
+HANPP_main <- dbGetQuery(conn = HANPP_db, statement = "SELECT * FROM HANPP_master LIMIT 10;")
+dbListTables(HANPP_db)
+
+class(HANPP_db)
+
+#Alter database structure
+dbExecute(HANPP_db, "DROP TABLE HANPP_main")
+```
+
+
