@@ -1,6 +1,15 @@
-# Building the database {#database}
+---
+title: "Assignment_6"
+author: "Kaeli Mueller"
+date: "3/9/2021"
+output: html_document
+---
 
-For my project I made an SQL database in R through the R package `DBI`. 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+For my project I made an SQL database in R through the R package 'DBI'. 
 
 ```{r packages}
 library(DBI)
@@ -8,14 +17,14 @@ library(DBI)
 
 I wanted to make this project relevant to the research that I will be doing for my thesis. However, my project is still very much in the beginning stages and I don't have all the data gathered for it yet. So what I did was make a database with 3 tables structured the way that I thought would be useful. I will eventually be making some bar graphs from the HANPP_master spreadsheet, and later on I want to do an analysis with variables in each county. That is why I chose State_county to be the primary key.
 
-```{r image, echo = FALSE, fig.align = "center", fig.cap = "Schema for my database"}
-knitr::include_graphics("Screenshot_database_schema.jpg")
+```{r image, echo = FALSE, fig.align = "center", fig.cap = "Schema for my database", out.width = '30%'}
+knitr::include_graphics("C:/Users/Kaeli/Documents/Computational_Methods/Screenshot_database_schema.jpg")
 ```
 
 First I created an R project to establish a working directory. Then within that I created a database.
 
 ```{r create database, eval = FALSE, echo = TRUE}
-hanpp_db_2 <- dbConnect(drv = RSQLite::SQLite(), "/data/HANPP.db")
+hanpp_db_2 <- dbConnect(drv = RSQLite::SQLite(), "data/HANPP.db")
 ```
 
 Next, I added tables to the database. This requires using SQL syntax and listing the name of each column and the type of variable it will be. 
@@ -68,3 +77,4 @@ class(hanpp_db_2)
 
 #It did work, but they are currently empty because I haven't added any of the csv data yet.
 ```
+
