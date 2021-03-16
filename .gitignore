@@ -23,3 +23,5 @@ figures/
 eBird/
 *.pdf
 *.txt.gz
+*.Rproj
+*.csv
