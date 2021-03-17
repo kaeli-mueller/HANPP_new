@@ -20,7 +20,7 @@ figures/
 *.gpkg
 *.RData
 *.Rhistory
-eBird/
+*eBird/
 *.pdf
 *.txt.gz
 *.Rproj

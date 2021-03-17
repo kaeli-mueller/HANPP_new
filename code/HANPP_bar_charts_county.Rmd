@@ -7,6 +7,8 @@ output:
   pdf_document: default
 ---
 
+######## Make initial bar charts #########
+
 Download important packages
 ```{r}
 #install.packages("statsr")
@@ -41,7 +43,7 @@ library(hrbrthemes)
 
 Import data
 ```{r}
-cotton_pima <- read.csv("C://Users//Kaeli//Downloads//Cottonpima_FINALHANPP.csv", header = T)
+cotton_pima <- read.csv("C://Users//Kaeli//Documents//HANPP//data//HANPP_general//Cottonpima_FINALHANPP.csv", header = T)
 
 hanpp_land <- read.csv("C://Users//Kaeli//Documents//HANPP//data//HANPP_general//HANPP_DataSet_LandEstimates.csv", 
                        header = TRUE)
@@ -114,6 +116,8 @@ Improve the titles and axis lables
 ggplot(data = hanpp_crop_final, aes(fill=Crop, y = HANPP_Harvest, x = County)) + geom_bar(position = "stack", stat = "identity") + scale_fill_manual(values = c("#FFD700","#663300", "#006400", "#ff0000")) +ggtitle("HANPP Harvest in Alabama Counties") + ylab("HANPP Harvest (g C/m^2/year)")
 ```
 
+######## Make bar graphs with the master excel sheet ########
+
 ```{r}
 #try with a single county
 #read in the entire csv
@@ -125,15 +129,20 @@ ALABAMA_AUTAUGA_2012 <- hanpp_master %>%
   filter(State_County == "ALABAMA_AUTAUGA")
 head(ALABAMA_AUTAUGA_2012)
 
+library(tidyselect)
+
 ALABAMA_AUTAUGA_2012 <- ALABAMA_AUTAUGA_2012 %>% 
-  select(Corn.Grain.2, Corn.Silage.2, Winter.Wheat.2, Spring.Wheat.Durum.2, Spring.Wheat.Excluding.Durum.2, Soybeans.2, Hay.Alfalfa.2, Cotton.Pima.2, Cotton.Upland.2, Sorghum.2, Other.Crops.2, Total.Crops.2, Hardwood.2, Softwood.2, Total.Timber.2, BLM.Grazing.2, USFS.Grazing.2, Private.Grazing.Land.2, Total.Grazing.2, X.2, Corn.Grain.8, Corn.Silage.8, Winter.Wheat.8, Spring.Wheat.Durum.8, Spring.Wheat.Excluding.Durum.8, Soybeans.8, Hay.Alfalfa.8, Cotton.Pima.8, Cotton.Upland.8, Sorghum.8, Other.Crops.8, Total.Crops.8, Hardwood.8, Softwood.8, Total.Timber.8, BLM.Grazing.8, USFS.Grazing.8, Private.Grazing.Land.8, Total.Crops.8, X.8, Corn.Grain.9, Corn.Silage.9, Winter.Wheat.9, Spring.Wheat.Durum.9, Spring.Wheat.Excluding.Durum.9, Soybeans.9, Hay.Alfalfa.9, Cotton.Pima.9, Cotton.Upland.9, Sorghum.9, Other.Crops.9, Total.Crops.9, Hardwood.9, Softwood.9, Total.Timber.9, BLM.Grazing.9, USFS.Grazing.9, Private.Grazing.Land.9, Total.Grazing.9, X.9, Corn.Grain.10, Corn.Silage.10, Winter.Wheat.10, Spring.Wheat.Durum.10, Spring.Wheat.Excluding.Durum.10, Soybeans.10, Hay.Alfalfa.10, Cotton.Pima.10, Cotton.Upland.10, Sorghum.10, Other.Crops.10, Total.Crops.10, Hardwood.10, Softwood.10, Total.Timber.10, BLM.Grazing.10, USFS.Grazing.10, Private.Grazing.Land.10, Total.Grazing.10, X.10, Corn.Grain.11, Corn.Silage.11, Winter.Wheat.11, Spring.Wheat.Durum.11, Spring.Wheat.Excluding.Durum.11, Soybeans.11, Hay.Alfalfa.11, Cotton.Pima.11, Cotton.Pima.11, Cotton.Upland.11, Sorghum.11, Other.Crops.11, Total.Crops.11, Hardwood.11, Softwood.11, Total.Timber.11, BLM.Grazing.11, USFS.Grazing.11, Private.Grazing.Land.11, Total.Crops.11, X.11)
+  dplyr::select(Corn.Grain.2, Corn.Silage.2, Winter.Wheat.2, Spring.Wheat.Durum.2, Spring.Wheat.Excluding.Durum.2, Soybeans.2, Hay.Alfalfa.2, Cotton.Pima.2, Cotton.Upland.2, Sorghum.2, Other.Crops.2, Total.Crops.2, Hardwood.2, Softwood.2, Total.Timber.2, BLM.Grazing.2, USFS.Grazing.2, Private.Grazing.Land.2, Total.Grazing.2, X.2, Corn.Grain.8, Corn.Silage.8, Winter.Wheat.8, Spring.Wheat.Durum.8, Spring.Wheat.Excluding.Durum.8, Soybeans.8, Hay.Alfalfa.8, Cotton.Pima.8, Cotton.Upland.8, Sorghum.8, Other.Crops.8, Total.Crops.8, Hardwood.8, Softwood.8, Total.Timber.8, BLM.Grazing.8, USFS.Grazing.8, Private.Grazing.Land.8, Total.Crops.8, X.8, Corn.Grain.9, Corn.Silage.9, Winter.Wheat.9, Spring.Wheat.Durum.9, Spring.Wheat.Excluding.Durum.9, Soybeans.9, Hay.Alfalfa.9, Cotton.Pima.9, Cotton.Upland.9, Sorghum.9, Other.Crops.9, Total.Crops.9, Hardwood.9, Softwood.9, Total.Timber.9, BLM.Grazing.9, USFS.Grazing.9, Private.Grazing.Land.9, Total.Grazing.9, X.9, Corn.Grain.10, Corn.Silage.10, Winter.Wheat.10, Spring.Wheat.Durum.10, Spring.Wheat.Excluding.Durum.10, Soybeans.10, Hay.Alfalfa.10, Cotton.Pima.10, Cotton.Upland.10, Sorghum.10, Other.Crops.10, Total.Crops.10, Hardwood.10, Softwood.10, Total.Timber.10, BLM.Grazing.10, USFS.Grazing.10, Private.Grazing.Land.10, Total.Grazing.10, X.10, Corn.Grain.11, Corn.Silage.11, Winter.Wheat.11, Spring.Wheat.Durum.11, Spring.Wheat.Excluding.Durum.11, Soybeans.11, Hay.Alfalfa.11, Cotton.Pima.11, Cotton.Pima.11, Cotton.Upland.11, Sorghum.11, Other.Crops.11, Total.Crops.11, Hardwood.11, Softwood.11, Total.Timber.11, BLM.Grazing.11, USFS.Grazing.11, Private.Grazing.Land.11, Total.Crops.11, X.11)
+
+#This selection was too much, narrow down the actual columns you need
+#Take out columns only in the units of g m^2
 
 head(ALABAMA_AUTAUGA_2012)
 
 #X.8 = total used, X.2 = total hanpp, X.9 = unused, X.10 = above ground, X.11 = belowground
 
 ALABAMA_AUTAUGA_2012 <- ALABAMA_AUTAUGA_2012 %>% 
-  select(Corn.Grain.2, Corn.Silage.2, Winter.Wheat.2, Spring.Wheat.Durum.2, Spring.Wheat.Excluding.Durum.2, Soybeans.2, Hay.Alfalfa.2, Cotton.Pima.2, Cotton.Upland.2, Sorghum.2, Other.Crops.2, Total.Crops.2, Hardwood.2, Softwood.2, Total.Timber.2, BLM.Grazing.2, USFS.Grazing.2, Private.Grazing.Land.2, Total.Grazing.2, X.2, X.8, X.9, X.10, X.11)
+  dplyr::select(Corn.Grain.2, Corn.Silage.2, Winter.Wheat.2, Spring.Wheat.Durum.2, Spring.Wheat.Excluding.Durum.2, Soybeans.2, Hay.Alfalfa.2, Cotton.Pima.2, Cotton.Upland.2, Sorghum.2, Other.Crops.2, Total.Crops.2, Hardwood.2, Softwood.2, Total.Timber.2, BLM.Grazing.2, USFS.Grazing.2, Private.Grazing.Land.2, Total.Grazing.2, X.2, X.8, X.9, X.10, X.11)
 head(ALABAMA_AUTAUGA_2012)
 
 #rename the columns
@@ -163,8 +172,9 @@ names(ALABAMA_AUTAUGA_2012)[names(ALABAMA_AUTAUGA_2012) == "X.10"] <- "HANPP Har
 names(ALABAMA_AUTAUGA_2012)[names(ALABAMA_AUTAUGA_2012) == "X.11"] <- "HANPP Harvest Belowground"
 head(ALABAMA_AUTAUGA_2012)
 
-#Make a column for types of hanpp and add it
+#Make a column for types of HANPP and add it (this will be the x axis)
 
+#Add the different values into the column
 
 ```
 
