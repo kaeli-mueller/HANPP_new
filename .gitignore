@@ -25,5 +25,5 @@ figures/
 *.txt.gz
 *.Rproj
 *.csv
-!reproducible_science/*.png
-!reproducible_science/*.jpg
+!docs/*.png
+!docs/*.jpg
