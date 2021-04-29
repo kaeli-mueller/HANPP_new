@@ -1,0 +1,76 @@
+---
+title: "HANPP_graphs"
+author: "Kaeli Mueller"
+date: "10/8/2020"
+output: html_document
+---
+
+Download important packages
+```{r}
+library(tidyverse)
+library(statsr)
+library(MuMIn)
+library(dplyr)
+library(GGally)
+library(car)
+library(bestglm)
+library(stats)
+library(boot)
+library(lmtest)
+library(MASS)
+library(normtest)
+library(emmeans)
+library(dplyr)
+library(ggplot2)
+library(lmtest)
+library(reshape)
+library(viridis)
+library(hrbrthemes)
+```
+
+Import data
+```{r}
+cotton_pima <- read.csv("C://Users//Kaeli//Downloads//Cottonpima_FINALHANPP.csv", header = T)
+
+hanpp_land <- read.csv("C://Users//Kaeli//Documents//HANPP//HANPP_DataSet_LandEstimates.csv", 
+                       header = TRUE)
+
+#make dataset smaller and manageable
+hanpp_land_small <- hanpp_land[1:6,]
+
+#First try
+p <- ggplot(data=hanpp_land_small, aes(x = County, y = Total.HANPP.Harvest, fill = Corn.Grain)) + 
+  geom_bar(stat='identity', color = "black")
+p
+```
+Stacked bar chart
+```{r}
+#make dataset smaller
+hanpp_crop <- data.frame(hanpp_land_small$County, hanpp_land_small$Corn.Grain.1, hanpp_land_small$Cotton.Upland.1, hanpp_land_small$Soybeans.1, hanpp_land_small$Hardwood.1)
+
+hanpp_crop_reshape <- melt(hanpp_crop, id =c("hanpp_land_small.County"))
+
+head(hanpp_crop_reshape)
+
+#rename
+names(hanpp_crop_reshape)[1:3] <- c("County", "Crop", "HANPP_Harvest")
+
+ggplot(data = hanpp_crop_reshape, aes(fill=Crop, y = HANPP_Harvest, x = County)) + geom_bar(position = "stack", stat = "identity")
+```
+
+Customize the bar chart
+```{r}
+#ggplot(data = hanpp_crop_reshape, aes(fill=Crop, y = HANPP_Harvest, x = County)) + geom_bar(position = "stack", stat = "identity") + ggtitle("HANPP Harvest per County for Alabama") + ylab("HANPP Harvest in g C/m^2/year") + scale_fill_viridis(discrete = T) + scale_color_hue(lables = c("Corn", "Upland Cotton", "Soybeans", "Hardwood"))
+
+#How to change the specific colors or specific titles in the legend?
+```
+
+
+test data
+```{r}
+specie <- c(rep("sorgho" , 3) , rep("poacee" , 3) , rep("banana" , 3) , rep("triticum" , 3) )
+condition <- rep(c("normal" , "stress" , "Nitrogen") , 4)
+value <- abs(rnorm(12 , 0 , 15))
+data <- data.frame(specie,condition,value)
+```
+

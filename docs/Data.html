@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Data Manipulation | Reproducible Science: Final Project</title>
+  <meta name="description" content="This is the introduction to my project for the reproducible science class" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Data Manipulation | Reproducible Science: Final Project" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is the introduction to my project for the reproducible science class" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Data Manipulation | Reproducible Science: Final Project" />
+  
+  <meta name="twitter:description" content="This is the introduction to my project for the reproducible science class" />
+  
+
+<meta name="author" content="Kaeli Mueller" />
+
+
+<meta name="date" content="2021-04-29" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="database.html"/>
+<link rel="next" href="more.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Table of Contents</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="database.html"><a href="database.html"><i class="fa fa-check"></i><b>2</b> Building the database</a></li>
+<li class="chapter" data-level="3" data-path="Data.html"><a href="Data.html"><i class="fa fa-check"></i><b>3</b> Data Manipulation</a></li>
+<li class="chapter" data-level="4" data-path="more.html"><a href="more.html"><i class="fa fa-check"></i><b>4</b> Data Visualization</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Reproducible Science: Final Project</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="Data" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> Data Manipulation</h1>
+<p>In this section I will be going through the steps to change the form of the data so that it is compatible with the ggplot syntax to make bar charts. I will be using tidyverse functions, as well as a specific function from the <code>janitor</code> library.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="Data.html#cb5-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb5-2"><a href="Data.html#cb5-2"></a><span class="kw">library</span>(janitor)</span></code></pre></div>
+<p>I read in the raw data, which is in a large confusing spreadsheet. This spreadsheet is also incomplete, it doesn’t contain all the needed data for the grazing sections. But we will make the plots look how they should and the code will work for the data when I do get it. I skip the very first line because it contains titles in merged cells. The <code>janitor_names</code> function is a really easy way to make names with unfortunate spaces in them into one character string so R can understand it. With this spreadsheet, it’s also important to make sure we select the right columns. There’s no shortcut around this, we just have to count the number of columns to make sure we are selecting the correct information.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="Data.html#cb6-1"></a>hanpp &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;C:/Users/Kaeli/Documents/HANPP/hanpp_bar_graphs/HANPP_main_updated_2012.csv&quot;</span>, <span class="dt">skip =</span> <span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb6-2"><a href="Data.html#cb6-2"></a><span class="st">  </span>janitor<span class="op">::</span><span class="kw">clean_names</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb6-3"><a href="Data.html#cb6-3"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(county<span class="op">:</span>year, </span>
+<span id="cb6-4"><a href="Data.html#cb6-4"></a>                corn_grain_<span class="dv">1</span><span class="op">:</span>total_grazing_<span class="dv">1</span>,</span>
+<span id="cb6-5"><a href="Data.html#cb6-5"></a>                <span class="dt">total_hanpp =</span> x45,</span>
+<span id="cb6-6"><a href="Data.html#cb6-6"></a>                <span class="dt">total_used =</span> x164,</span>
+<span id="cb6-7"><a href="Data.html#cb6-7"></a>                <span class="dt">total_unused =</span> x184,</span>
+<span id="cb6-8"><a href="Data.html#cb6-8"></a>                <span class="dt">total_below_ground =</span> x224,</span>
+<span id="cb6-9"><a href="Data.html#cb6-9"></a>                <span class="dt">total_above_ground =</span> x204)</span></code></pre></div>
+<pre><code>## 
+## -- Column specification --------------------------------------------------------
+## cols(
+##   .default = col_double(),
+##   County = col_character(),
+##   State = col_character(),
+##   State_County = col_character(),
+##   `Spring Wheat Durum` = col_logical(),
+##   `Spring Wheat Durum_1` = col_logical(),
+##   `Spring Wheat Durum_2` = col_logical(),
+##   Hardwood_2 = col_logical(),
+##   Softwood_2 = col_logical(),
+##   `Total Timber_2` = col_logical(),
+##   `Spring Wheat Durum_3` = col_logical(),
+##   `Total Timber_3` = col_logical(),
+##   `BLM Grazing_3` = col_logical(),
+##   `USFS Grazing_3` = col_logical(),
+##   `Private Grazing Land_3` = col_logical(),
+##   `Total Grazing_3` = col_logical(),
+##   X84 = col_logical(),
+##   `Spring Wheat Durum_4` = col_logical(),
+##   `BLM Grazing_4` = col_logical(),
+##   `USFS Grazing_4` = col_logical(),
+##   `Private Grazing Land_4` = col_logical()
+##   # ... with 73 more columns
+## )
+## i Use `spec()` for the full column specifications.</code></pre>
+<p>I will examine the top row of the table to make sure it is the correct format</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="Data.html#cb8-1"></a><span class="kw">head</span>(hanpp)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 28
+##   county  state   state_county    year corn_grain_1 corn_silage_1 winter_wheat_1
+##   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;        &lt;dbl&gt;         &lt;dbl&gt;          &lt;dbl&gt;
+## 1 AUTAUGA ALABAMA ALABAMA_AUTAU~  2012         1.28            NA             NA
+## 2 BALDWIN ALABAMA ALABAMA_BALDW~  2012         1.82            NA             NA
+## 3 BARBOUR ALABAMA ALABAMA_BARBO~  2012         1.98            NA             NA
+## 4 BIBB    ALABAMA ALABAMA_BIBB    2012        NA               NA             NA
+## 5 BLOUNT  ALABAMA ALABAMA_BLOUNT  2012         1.42            NA             NA
+## 6 BULLOCK ALABAMA ALABAMA_BULLO~  2012         1.88            NA             NA
+## # ... with 21 more variables: spring_wheat_durum_1 &lt;lgl&gt;,
+## #   spring_wheat_excluding_durum_1 &lt;dbl&gt;, soybeans_1 &lt;dbl&gt;,
+## #   hay_alfalfa_1 &lt;dbl&gt;, cotton_pima_1 &lt;dbl&gt;, cotton_upland_1 &lt;dbl&gt;,
+## #   sorghum_1 &lt;dbl&gt;, other_crops_1 &lt;dbl&gt;, total_crops_1 &lt;dbl&gt;,
+## #   hardwood_1 &lt;dbl&gt;, softwood_1 &lt;dbl&gt;, total_timber_1 &lt;dbl&gt;,
+## #   blm_grazing_1 &lt;dbl&gt;, usfs_grazing_1 &lt;dbl&gt;, private_grazing_land_1 &lt;dbl&gt;,
+## #   total_grazing_1 &lt;dbl&gt;, total_hanpp &lt;dbl&gt;, total_used &lt;dbl&gt;,
+## #   total_unused &lt;dbl&gt;, total_below_ground &lt;dbl&gt;, total_above_ground &lt;dbl&gt;</code></pre>
+<p>Now that we have the correct information, we have to imagine how it should look in the end to be plotted with ggplot. The aesthetics of our desired final plot are grams C / m2 / year (y), HANPP categories (x), and HANPP variable (sections within the bars). This means that grams of C per m2 per year needs to be a column, and the end result will be a dataframe that looks like this:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="Data.html#cb10-1"></a><span class="kw">data.frame</span>(<span class="dt">county =</span> <span class="ot">NA</span>,</span>
+<span id="cb10-2"><a href="Data.html#cb10-2"></a>           <span class="dt">state =</span> <span class="ot">NA</span>, </span>
+<span id="cb10-3"><a href="Data.html#cb10-3"></a>           <span class="dt">state_county =</span> <span class="ot">NA</span>, </span>
+<span id="cb10-4"><a href="Data.html#cb10-4"></a>           <span class="dt">year =</span> <span class="ot">NA</span>, </span>
+<span id="cb10-5"><a href="Data.html#cb10-5"></a>           <span class="dt">variable =</span> <span class="ot">NA</span>,</span>
+<span id="cb10-6"><a href="Data.html#cb10-6"></a>           <span class="dt">value =</span> <span class="ot">NA</span>)</span></code></pre></div>
+<pre><code>##   county state state_county year variable value
+## 1     NA    NA           NA   NA       NA    NA</code></pre>
+<p>So I know I have to pivot my data to make it longer instead of wider. I can do this with tidyverse functions. I am taking the data that used to be in columns and creating more columns.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="Data.html#cb12-1"></a>hanpp_long &lt;-<span class="st"> </span>hanpp <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb12-2"><a href="Data.html#cb12-2"></a><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="dt">cols =</span> corn_grain_<span class="dv">1</span><span class="op">:</span>total_above_ground,</span>
+<span id="cb12-3"><a href="Data.html#cb12-3"></a>               <span class="dt">names_to =</span> <span class="st">&quot;variable&quot;</span>,</span>
+<span id="cb12-4"><a href="Data.html#cb12-4"></a>               <span class="dt">values_to =</span> <span class="st">&quot;gc_m2_yr&quot;</span>)</span>
+<span id="cb12-5"><a href="Data.html#cb12-5"></a></span>
+<span id="cb12-6"><a href="Data.html#cb12-6"></a><span class="kw">head</span>(hanpp_long)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 6
+##   county  state   state_county     year variable                       gc_m2_yr
+##   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;                             &lt;dbl&gt;
+## 1 AUTAUGA ALABAMA ALABAMA_AUTAUGA  2012 corn_grain_1                      1.28 
+## 2 AUTAUGA ALABAMA ALABAMA_AUTAUGA  2012 corn_silage_1                    NA    
+## 3 AUTAUGA ALABAMA ALABAMA_AUTAUGA  2012 winter_wheat_1                   NA    
+## 4 AUTAUGA ALABAMA ALABAMA_AUTAUGA  2012 spring_wheat_durum_1             NA    
+## 5 AUTAUGA ALABAMA ALABAMA_AUTAUGA  2012 spring_wheat_excluding_durum_1   NA    
+## 6 AUTAUGA ALABAMA ALABAMA_AUTAUGA  2012 soybeans_1                        0.779</code></pre>
+<p>Next we have to categorize each variable by which column we want the information to go into. We use the <code>grepl</code> function to sort variables based on what character strings they have in their names, and assign them to variables in a new column.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="Data.html#cb14-1"></a>hanpp_long &lt;-<span class="st"> </span>hanpp_long <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb14-2"><a href="Data.html#cb14-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">variable =</span> <span class="kw">case_when</span>(</span>
+<span id="cb14-3"><a href="Data.html#cb14-3"></a>    variable <span class="op">==</span><span class="st"> &quot;total_crops_1&quot;</span> <span class="op">~</span><span class="st"> &quot;total_crops&quot;</span>,</span>
+<span id="cb14-4"><a href="Data.html#cb14-4"></a>    variable <span class="op">==</span><span class="st"> &quot;total_timber_1&quot;</span> <span class="op">~</span><span class="st"> &quot;total_timber&quot;</span>,</span>
+<span id="cb14-5"><a href="Data.html#cb14-5"></a>    variable <span class="op">==</span><span class="st"> &quot;total_grazing_1&quot;</span> <span class="op">~</span><span class="st"> &quot;total_grazing&quot;</span>,</span>
+<span id="cb14-6"><a href="Data.html#cb14-6"></a>    <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> </span>variable</span>
+<span id="cb14-7"><a href="Data.html#cb14-7"></a>  )) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb14-8"><a href="Data.html#cb14-8"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">category =</span> <span class="kw">case_when</span>(</span>
+<span id="cb14-9"><a href="Data.html#cb14-9"></a>    <span class="kw">grepl</span>(<span class="dt">pattern =</span> <span class="st">&quot;_1&quot;</span>, <span class="dt">x =</span> variable) <span class="op">~</span><span class="st"> &quot;By specific product&quot;</span>,</span>
+<span id="cb14-10"><a href="Data.html#cb14-10"></a>    variable <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;total_crops&quot;</span>, <span class="st">&quot;total_timber&quot;</span>, <span class="st">&quot;total_grazing&quot;</span>) <span class="op">~</span><span class="st"> &quot;By product&quot;</span>,</span>
+<span id="cb14-11"><a href="Data.html#cb14-11"></a>    variable <span class="op">==</span><span class="st"> &quot;total_hanpp&quot;</span> <span class="op">~</span><span class="st"> &quot;HANPP&quot;</span>,</span>
+<span id="cb14-12"><a href="Data.html#cb14-12"></a>    <span class="kw">grepl</span>(<span class="dt">pattern =</span> <span class="st">&quot;above_ground&quot;</span>, variable) <span class="op">~</span><span class="st"> &quot;By location&quot;</span>,</span>
+<span id="cb14-13"><a href="Data.html#cb14-13"></a>    <span class="kw">grepl</span>(<span class="dt">pattern =</span> <span class="st">&quot;below_ground&quot;</span>, variable) <span class="op">~</span><span class="st"> &quot;By location&quot;</span>,</span>
+<span id="cb14-14"><a href="Data.html#cb14-14"></a>    <span class="kw">grepl</span>(<span class="dt">pattern =</span> <span class="st">&quot;used&quot;</span>, variable) <span class="op">~</span><span class="st"> &quot;By use&quot;</span>,</span>
+<span id="cb14-15"><a href="Data.html#cb14-15"></a>    <span class="kw">grepl</span>(<span class="dt">pattern =</span> <span class="st">&quot;unused&quot;</span>, variable) <span class="op">~</span><span class="st"> &quot;By use&quot;</span></span>
+<span id="cb14-16"><a href="Data.html#cb14-16"></a>  ))</span>
+<span id="cb14-17"><a href="Data.html#cb14-17"></a></span>
+<span id="cb14-18"><a href="Data.html#cb14-18"></a><span class="kw">head</span>(hanpp_long)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 7
+##   county  state   state_county   year variable            gc_m2_yr category     
+##   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;                  &lt;dbl&gt; &lt;chr&gt;        
+## 1 AUTAUGA ALABAMA ALABAMA_AUTA~  2012 corn_grain_1           1.28  By specific ~
+## 2 AUTAUGA ALABAMA ALABAMA_AUTA~  2012 corn_silage_1         NA     By specific ~
+## 3 AUTAUGA ALABAMA ALABAMA_AUTA~  2012 winter_wheat_1        NA     By specific ~
+## 4 AUTAUGA ALABAMA ALABAMA_AUTA~  2012 spring_wheat_durum~   NA     By specific ~
+## 5 AUTAUGA ALABAMA ALABAMA_AUTA~  2012 spring_wheat_exclu~   NA     By specific ~
+## 6 AUTAUGA ALABAMA ALABAMA_AUTA~  2012 soybeans_1             0.779 By specific ~</code></pre>
+<p>We have one last data manipulation step, we have to order the columns. We do this by assigning factor levels to the different categories for each column.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="Data.html#cb16-1"></a>hanpp_long &lt;-<span class="st"> </span>hanpp_long <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb16-2"><a href="Data.html#cb16-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">category =</span> <span class="kw">factor</span>(category,</span>
+<span id="cb16-3"><a href="Data.html#cb16-3"></a>                           <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;HANPP&quot;</span>,</span>
+<span id="cb16-4"><a href="Data.html#cb16-4"></a>                                      <span class="st">&quot;By use&quot;</span>,</span>
+<span id="cb16-5"><a href="Data.html#cb16-5"></a>                                      <span class="st">&quot;By location&quot;</span>,</span>
+<span id="cb16-6"><a href="Data.html#cb16-6"></a>                                      <span class="st">&quot;By product&quot;</span>,</span>
+<span id="cb16-7"><a href="Data.html#cb16-7"></a>                                      <span class="st">&quot;By specific product&quot;</span>)))</span></code></pre></div>
+<p>After doing all the data manipulation, I can now change the names of variables to more visually pleasing names. This will make it easier to read them when they appear on the final bar chart.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="Data.html#cb17-1"></a>hanpp_long &lt;-<span class="st"> </span>hanpp_long <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb17-2"><a href="Data.html#cb17-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">variable =</span> <span class="kw">case_when</span>(</span>
+<span id="cb17-3"><a href="Data.html#cb17-3"></a>    variable <span class="op">==</span><span class="st"> &quot;corn_grain_1&quot;</span> <span class="op">~</span><span class="st"> &quot;Corn Grain&quot;</span>,</span>
+<span id="cb17-4"><a href="Data.html#cb17-4"></a>    variable <span class="op">==</span><span class="st"> &quot;corn_silage_1&quot;</span> <span class="op">~</span><span class="st"> &quot;Corn Silage&quot;</span>,</span>
+<span id="cb17-5"><a href="Data.html#cb17-5"></a>    variable <span class="op">==</span><span class="st"> &quot;winter_wheat_1&quot;</span> <span class="op">~</span><span class="st"> &quot;Winter Wheat&quot;</span>,</span>
+<span id="cb17-6"><a href="Data.html#cb17-6"></a>    variable <span class="op">==</span><span class="st"> &quot;spring_wheat_durum_1&quot;</span> <span class="op">~</span><span class="st"> &quot;Spring Wheat Durum&quot;</span>,</span>
+<span id="cb17-7"><a href="Data.html#cb17-7"></a>    variable <span class="op">==</span><span class="st"> &quot;spring_wheat_excluding_durum_1&quot;</span> <span class="op">~</span><span class="st"> &quot;Spring Wheat Excluding Durum&quot;</span>,</span>
+<span id="cb17-8"><a href="Data.html#cb17-8"></a>    variable <span class="op">==</span><span class="st"> &quot;soybeans_1&quot;</span> <span class="op">~</span><span class="st"> &quot;Soybeans&quot;</span>,</span>
+<span id="cb17-9"><a href="Data.html#cb17-9"></a>    variable <span class="op">==</span><span class="st"> &quot;hay_alfalfa_1&quot;</span> <span class="op">~</span><span class="st"> &quot;Hay Alfalfa&quot;</span>,</span>
+<span id="cb17-10"><a href="Data.html#cb17-10"></a>    variable <span class="op">==</span><span class="st"> &quot;cotton_pima_1&quot;</span> <span class="op">~</span><span class="st"> &quot;Cotton Pima&quot;</span>,</span>
+<span id="cb17-11"><a href="Data.html#cb17-11"></a>    variable <span class="op">==</span><span class="st"> &quot;total_crops_1&quot;</span> <span class="op">~</span><span class="st"> &quot;Total Crops&quot;</span>,</span>
+<span id="cb17-12"><a href="Data.html#cb17-12"></a>    variable <span class="op">==</span><span class="st"> &quot;hardwood_1&quot;</span> <span class="op">~</span><span class="st"> &quot;Hardwood&quot;</span>,</span>
+<span id="cb17-13"><a href="Data.html#cb17-13"></a>    variable <span class="op">==</span><span class="st"> &quot;softwood_11&quot;</span> <span class="op">~</span><span class="st"> &quot;Softwood&quot;</span>,</span>
+<span id="cb17-14"><a href="Data.html#cb17-14"></a>    variable <span class="op">==</span><span class="st"> &quot;private_grazing_land_1&quot;</span> <span class="op">~</span><span class="st"> &quot;Private Grazing&quot;</span>,</span>
+<span id="cb17-15"><a href="Data.html#cb17-15"></a>    variable <span class="op">==</span><span class="st"> &quot;total_timber_1&quot;</span> <span class="op">~</span><span class="st"> &quot;Total Timber&quot;</span>,</span>
+<span id="cb17-16"><a href="Data.html#cb17-16"></a>    variable <span class="op">==</span><span class="st"> &quot;blm_grazing_1&quot;</span> <span class="op">~</span><span class="st"> &quot;BLM Grazing&quot;</span>,</span>
+<span id="cb17-17"><a href="Data.html#cb17-17"></a>    variable <span class="op">==</span><span class="st"> &quot;usfs_grazing_1&quot;</span> <span class="op">~</span><span class="st"> &quot;USFS Grazing&quot;</span>,</span>
+<span id="cb17-18"><a href="Data.html#cb17-18"></a>    variable <span class="op">==</span><span class="st"> &quot;total_grazing_1&quot;</span> <span class="op">~</span><span class="st"> &quot;Total Grazing&quot;</span>,</span>
+<span id="cb17-19"><a href="Data.html#cb17-19"></a>    variable <span class="op">==</span><span class="st"> &quot;softwood_1&quot;</span> <span class="op">~</span><span class="st"> &quot;Softwood&quot;</span>,</span>
+<span id="cb17-20"><a href="Data.html#cb17-20"></a>    variable <span class="op">==</span><span class="st"> &quot;sorghum_1&quot;</span> <span class="op">~</span><span class="st"> &quot;Sorghum&quot;</span>,</span>
+<span id="cb17-21"><a href="Data.html#cb17-21"></a>    variable <span class="op">==</span><span class="st"> &quot;other_crops_1&quot;</span> <span class="op">~</span><span class="st"> &quot;Other Crops&quot;</span>,</span>
+<span id="cb17-22"><a href="Data.html#cb17-22"></a>    variable <span class="op">==</span><span class="st"> &quot;total_hanpp&quot;</span> <span class="op">~</span><span class="st"> &quot;  &quot;</span>,</span>
+<span id="cb17-23"><a href="Data.html#cb17-23"></a>    variable <span class="op">==</span><span class="st"> &quot;total_used&quot;</span> <span class="op">~</span><span class="st"> &quot;Used&quot;</span>,</span>
+<span id="cb17-24"><a href="Data.html#cb17-24"></a>    variable <span class="op">==</span><span class="st"> &quot;total_hanpp&quot;</span> <span class="op">~</span><span class="st"> &quot;Unused&quot;</span>,</span>
+<span id="cb17-25"><a href="Data.html#cb17-25"></a>    variable <span class="op">==</span><span class="st"> &quot;total_below_ground&quot;</span> <span class="op">~</span><span class="st"> &quot;Below Ground&quot;</span>,</span>
+<span id="cb17-26"><a href="Data.html#cb17-26"></a>    variable <span class="op">==</span><span class="st"> &quot;total_above_ground&quot;</span> <span class="op">~</span><span class="st"> &quot;Above Ground&quot;</span>,</span>
+<span id="cb17-27"><a href="Data.html#cb17-27"></a>    variable <span class="op">==</span><span class="st"> &quot;total_crops&quot;</span> <span class="op">~</span><span class="st"> &quot;Total Crops&quot;</span>,</span>
+<span id="cb17-28"><a href="Data.html#cb17-28"></a>    variable <span class="op">==</span><span class="st"> &quot;total_grazing&quot;</span> <span class="op">~</span><span class="st"> &quot;Total Grazing&quot;</span>,</span>
+<span id="cb17-29"><a href="Data.html#cb17-29"></a>    variable <span class="op">==</span><span class="st"> &quot;total_timber&quot;</span> <span class="op">~</span><span class="st"> &quot;Total Timber&quot;</span>,</span>
+<span id="cb17-30"><a href="Data.html#cb17-30"></a>    <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> </span>variable</span>
+<span id="cb17-31"><a href="Data.html#cb17-31"></a>  ))</span>
+<span id="cb17-32"><a href="Data.html#cb17-32"></a></span>
+<span id="cb17-33"><a href="Data.html#cb17-33"></a><span class="kw">head</span>(hanpp_long)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 7
+##   county  state   state_county    year variable           gc_m2_yr category     
+##   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;                 &lt;dbl&gt; &lt;fct&gt;        
+## 1 AUTAUGA ALABAMA ALABAMA_AUTAU~  2012 Corn Grain            1.28  By specific ~
+## 2 AUTAUGA ALABAMA ALABAMA_AUTAU~  2012 Corn Silage          NA     By specific ~
+## 3 AUTAUGA ALABAMA ALABAMA_AUTAU~  2012 Winter Wheat         NA     By specific ~
+## 4 AUTAUGA ALABAMA ALABAMA_AUTAU~  2012 Spring Wheat Durum   NA     By specific ~
+## 5 AUTAUGA ALABAMA ALABAMA_AUTAU~  2012 Spring Wheat Excl~   NA     By specific ~
+## 6 AUTAUGA ALABAMA ALABAMA_AUTAU~  2012 Soybeans              0.779 By specific ~</code></pre>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="database.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="more.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown_project.pdf", "bookdown_project.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

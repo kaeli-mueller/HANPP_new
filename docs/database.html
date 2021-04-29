@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Building the database | Reproducible Science: Final Project</title>
+  <meta name="description" content="This is the introduction to my project for the reproducible science class" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Building the database | Reproducible Science: Final Project" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is the introduction to my project for the reproducible science class" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Building the database | Reproducible Science: Final Project" />
+  
+  <meta name="twitter:description" content="This is the introduction to my project for the reproducible science class" />
+  
+
+<meta name="author" content="Kaeli Mueller" />
+
+
+<meta name="date" content="2021-04-29" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="Data.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Table of Contents</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="database.html"><a href="database.html"><i class="fa fa-check"></i><b>2</b> Building the database</a></li>
+<li class="chapter" data-level="3" data-path="Data.html"><a href="Data.html"><i class="fa fa-check"></i><b>3</b> Data Manipulation</a></li>
+<li class="chapter" data-level="4" data-path="more.html"><a href="more.html"><i class="fa fa-check"></i><b>4</b> Data Visualization</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Reproducible Science: Final Project</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="database" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> Building the database</h1>
+<p>For my project I made an SQL database in R through the R package <code>DBI</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="database.html#cb1-1"></a><span class="kw">library</span>(DBI)</span></code></pre></div>
+<p>I wanted to make this project relevant to the research that I will be doing for my thesis. However, my project is still very much in the beginning stages and I don’t have all the data gathered for it yet. So what I did was make a database with 3 tables structured the way that I thought would be useful. I will eventually be making some bar graphs from the HANPP_master spreadsheet, and later on I want to do an analysis with variables in each county. That is why I chose State_county to be the primary key.</p>
+<div class="figure" style="text-align: center"><span id="fig:image"></span>
+<img src="Screenshot_database_schema.jpg" alt="Schema for my database" width="328" />
+<p class="caption">
+Figure 2.1: Schema for my database
+</p>
+</div>
+<p>First I created an R project to establish a working directory. Then within that I created a database.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="database.html#cb2-1"></a>hanpp_db_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="dt">drv =</span> RSQLite<span class="op">::</span><span class="kw">SQLite</span>(), <span class="st">&quot;/data/HANPP.db&quot;</span>)</span></code></pre></div>
+<p>Next, I added tables to the database. This requires using SQL syntax and listing the name of each column and the type of variable it will be.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="database.html#cb3-1"></a><span class="co">#create main HANPP table</span></span>
+<span id="cb3-2"><a href="database.html#cb3-2"></a><span class="kw">dbExecute</span>(hanpp_db_<span class="dv">2</span>, <span class="st">&quot;CREATE TABLE HANPP_main (</span></span>
+<span id="cb3-3"><a href="database.html#cb3-3"></a><span class="st">state_county varchar(30),</span></span>
+<span id="cb3-4"><a href="database.html#cb3-4"></a><span class="st">total_HANPP integer(10),</span></span>
+<span id="cb3-5"><a href="database.html#cb3-5"></a><span class="st">HANPP_used integer(10),</span></span>
+<span id="cb3-6"><a href="database.html#cb3-6"></a><span class="st">HANPP_unused integer(10),</span></span>
+<span id="cb3-7"><a href="database.html#cb3-7"></a><span class="st">HANPP_aboveground integer(10),</span></span>
+<span id="cb3-8"><a href="database.html#cb3-8"></a><span class="st">HANPP_belowground integer(10),</span></span>
+<span id="cb3-9"><a href="database.html#cb3-9"></a><span class="st">HANPP_total_grazing integer(10),</span></span>
+<span id="cb3-10"><a href="database.html#cb3-10"></a><span class="st">HANPP_total_timber integer(10),</span></span>
+<span id="cb3-11"><a href="database.html#cb3-11"></a><span class="st">HANPP_total_crops integer(10),</span></span>
+<span id="cb3-12"><a href="database.html#cb3-12"></a><span class="st">PRIMARY KEY (state_county)</span></span>
+<span id="cb3-13"><a href="database.html#cb3-13"></a><span class="st">);&quot;</span>)</span>
+<span id="cb3-14"><a href="database.html#cb3-14"></a></span>
+<span id="cb3-15"><a href="database.html#cb3-15"></a><span class="co">#create table for the county scale</span></span>
+<span id="cb3-16"><a href="database.html#cb3-16"></a><span class="kw">dbExecute</span>(hanpp_db_<span class="dv">2</span>, <span class="st">&quot;CREATE TABLE NPPeco_biodiversity_county (</span></span>
+<span id="cb3-17"><a href="database.html#cb3-17"></a><span class="st">county_id integer PRIMARY KEY, </span></span>
+<span id="cb3-18"><a href="database.html#cb3-18"></a><span class="st">state_county varchar(30),</span></span>
+<span id="cb3-19"><a href="database.html#cb3-19"></a><span class="st">NPPeco integer(10),</span></span>
+<span id="cb3-20"><a href="database.html#cb3-20"></a><span class="st">species_richness varchar(10),</span></span>
+<span id="cb3-21"><a href="database.html#cb3-21"></a><span class="st">abundance varchar(10),</span></span>
+<span id="cb3-22"><a href="database.html#cb3-22"></a><span class="st">FOREIGN KEY (state_county) REFERENCES HANPP_master(state_county)</span></span>
+<span id="cb3-23"><a href="database.html#cb3-23"></a><span class="st">);&quot;</span>)</span>
+<span id="cb3-24"><a href="database.html#cb3-24"></a></span>
+<span id="cb3-25"><a href="database.html#cb3-25"></a><span class="co">#create table for the pixel scale</span></span>
+<span id="cb3-26"><a href="database.html#cb3-26"></a><span class="kw">dbExecute</span>(hanpp_db_<span class="dv">2</span>, <span class="st">&quot;CREATE TABLE NPPeco_biodiversity_pixel (</span></span>
+<span id="cb3-27"><a href="database.html#cb3-27"></a><span class="st">county_id integer PRIMARY KEY, </span></span>
+<span id="cb3-28"><a href="database.html#cb3-28"></a><span class="st">state_county varchar(30),</span></span>
+<span id="cb3-29"><a href="database.html#cb3-29"></a><span class="st">NPPeco integer(10),</span></span>
+<span id="cb3-30"><a href="database.html#cb3-30"></a><span class="st">species_richness varchar(10),</span></span>
+<span id="cb3-31"><a href="database.html#cb3-31"></a><span class="st">abundance varchar(10),</span></span>
+<span id="cb3-32"><a href="database.html#cb3-32"></a><span class="st">FOREIGN KEY (state_county) REFERENCES HANPP_master(state_county)</span></span>
+<span id="cb3-33"><a href="database.html#cb3-33"></a><span class="st">);&quot;</span>)</span></code></pre></div>
+<p>Examine tables to see if the connection worked.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="database.html#cb4-1"></a><span class="kw">dbListTables</span>(hanpp_db_<span class="dv">2</span>)</span>
+<span id="cb4-2"><a href="database.html#cb4-2"></a><span class="co">#&quot;HANPP_main&quot;  &quot;NPPeco_biodiversity_county&quot;   &quot;NPPeco_biodiversity_pixel&quot;</span></span>
+<span id="cb4-3"><a href="database.html#cb4-3"></a></span>
+<span id="cb4-4"><a href="database.html#cb4-4"></a><span class="kw">class</span>(hanpp_db_<span class="dv">2</span>)</span>
+<span id="cb4-5"><a href="database.html#cb4-5"></a><span class="co">#[1] &quot;SQLiteConnection&quot;</span></span>
+<span id="cb4-6"><a href="database.html#cb4-6"></a><span class="co">#attr(,&quot;package&quot;)</span></span>
+<span id="cb4-7"><a href="database.html#cb4-7"></a><span class="co">#[1] &quot;RSQLite&quot;</span></span>
+<span id="cb4-8"><a href="database.html#cb4-8"></a></span>
+<span id="cb4-9"><a href="database.html#cb4-9"></a><span class="co">#It did work, but they are currently empty because I haven&#39;t added any of the csv data yet.</span></span></code></pre></div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="Data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown_project.pdf", "bookdown_project.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

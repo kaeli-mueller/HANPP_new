@@ -1,0 +1,107 @@
+# Data Manipulation {#Data}
+
+```{r setupone, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+In this section I will be going through the steps to change the form of the data so that it is compatible with the ggplot syntax to make bar charts.
+
+```{r maspackages}
+library(tidyverse)
+library(janitor)
+```
+
+Read in the data. Use the janitor function to clean the names
+```{r rawdatatwo}
+hanpp_raw <- hanpp <- read_csv("C:/Users/Kaeli/Documents/HANPP/hanpp_bar_graphs/HANPP_main_updated_2012.csv", skip = 1) %>% 
+  janitor::clean_names()
+
+hanpp <- read_csv("C:/Users/Kaeli/Documents/HANPP/hanpp_bar_graphs/HANPP_main_updated_2012.csv", skip = 1) %>% 
+  janitor::clean_names() %>% 
+  dplyr::select(county:year, 
+                corn_grain_1:total_grazing_1,
+                total_hanpp = x45,
+                total_used = x164,
+                total_unused = x184,
+                total_below_ground = x224,
+                total_above_ground = x204)
+
+#names(hanpp)
+
+#head(hanpp)
+```
+
+The aesthetics of our desired final plot are grams C / m2 / year (y),
+HANPP categories (x), and HANPP variable (sections within the bars)
+```{r tidyversetwo}
+# Grams of C per m2 per year needs to be a column: pivot!
+
+head(hanpp)
+
+# This is what we want the data frame to look like after we pivot
+data.frame(county = NA,
+           state = NA, 
+           state_county = NA, 
+           year = NA, 
+           variable = NA,
+           value = NA)
+
+# Pivot longer
+hanpp_long <- hanpp %>% 
+  pivot_longer(cols = corn_grain_1:total_above_ground,
+               names_to = "variable",
+               values_to = "gc_m2_yr")
+
+# Add column for HANPP category
+
+hanpp_long <- hanpp_long %>% 
+  mutate(variable = case_when(
+    variable == "total_crops_1" ~ "total_crops",
+    variable == "total_timber_1" ~ "total_timber",
+    variable == "total_grazing_1" ~ "total_grazing",
+    TRUE ~ variable
+  )) %>% 
+  mutate(category = case_when(
+    grepl(pattern = "_1", x = variable) ~ "By specific product",
+    variable %in% c("total_crops", "total_timber", "total_grazing") ~ "By product",
+    variable == "total_hanpp" ~ "HANPP",
+    grepl(pattern = "above_ground", variable) ~ "By location",
+    grepl(pattern = "below_ground", variable) ~ "By location",
+    grepl(pattern = "used", variable) ~ "By use",
+    grepl(pattern = "unused", variable) ~ "By use"
+  ))
+
+#Fix names of specific crops
+hanpp_long <- hanpp_long %>% 
+  mutate(variable = case_when(
+    variable == "corn_grain_1" ~ "Corn Grain",
+    variable == "corn_silage_1" ~ "Corn Silage",
+    variable == "winter_wheat_1" ~ "Winter Wheat",
+    variable == "spring_wheat_durum_1" ~ "Spring Wheat Durum",
+    variable == "spring_wheat_excluding_durum_1" ~ "Spring Wheat Excluding Durum",
+    variable == "soybeans_1" ~ "Soybeans",
+    variable == "hay_alfalfa_1" ~ "Hay Alfalfa",
+    variable == "cotton_pima_1" ~ "Cotton Pima",
+    variable == "total_crops_1" ~ "Total Crops",
+    variable == "hardwood_1" ~ "Hardwood",
+    variable == "softwood_11" ~ "Softwood",
+    variable == "private_grazing_land_1" ~ "Private Grazing",
+    variable == "total_timber_1" ~ "Total Timber",
+    variable == "blm_grazing_1" ~ "BLM Grazing",
+    variable == "usfs_grazing_1" ~ "USFS Grazing",
+    variable == "total_grazing_1" ~ "Total Grazing",
+    variable == "softwood_1" ~ "Softwood",
+    variable == "sorghum_1" ~ "Sorghum",
+    variable == "other_crops_1" ~ "Other Crops",
+    variable == "total_hanpp" ~ "  ",
+    variable == "total_used" ~ "Used",
+    variable == "total_hanpp" ~ "Unused",
+    variable == "total_below_ground" ~ "Below Ground",
+    variable == "total_above_ground" ~ "Above Ground",
+    variable == "total_crops" ~ "Total Crops",
+    variable == "total_grazing" ~ "Total Grazing",
+    variable == "total_timber" ~ "Total Timber",
+    TRUE ~ variable
+  ))
+
+names(hanpp)
+```

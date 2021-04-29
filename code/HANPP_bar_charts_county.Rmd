@@ -8,8 +8,10 @@ output:
 ---
 
 ######## Make initial bar charts #########
+This is for myself to practice making bar charts with ggplot
 
 Download important packages
+Who knows if I need all of these, I'll load them all just in case
 ```{r}
 #install.packages("statsr")
 #install.packages("GGally")
@@ -39,6 +41,7 @@ library(lmtest)
 library(reshape)
 library(viridis)
 library(hrbrthemes)
+library(tidyselect)
 ```
 
 Import data
@@ -53,13 +56,17 @@ hanpp_land_small <- hanpp_land[1:6,]
 head(hanpp_land_small)
 
 #First try
-p <- ggplot(data=hanpp_land_small, aes(x = County, y = Total.HANPP.Harvest, fill = Corn.Grain)) + 
+#x axis is different counties, y axis is the HANPP harvest in g/C, fill takes it from the corn.grain column
+p <- ggplot(data=hanpp_land_small, aes(x = County, 
+                                       y = Total.HANPP.Harvest, 
+                                       fill = Corn.Grain)) + 
   geom_bar(stat='identity', color = "black")
+
 p
 ```
-Stacked bar chart
+Now practice with a stacked bar chart
 ```{r}
-#make dataset smaller
+#make dataset smaller, keep only the columns you want
 hanpp_crop <- data.frame(hanpp_land_small$County, hanpp_land_small$Corn.Grain.1, hanpp_land_small$Cotton.Upland.1, hanpp_land_small$Soybeans.1, hanpp_land_small$Hardwood.1)
 
 hanpp_crop_reshape <- melt(hanpp_crop, id =c("hanpp_land_small.County"))
@@ -69,9 +76,13 @@ head(hanpp_crop_reshape)
 #rename
 names(hanpp_crop_reshape)[1:3] <- c("County", "Crop", "HANPP_Harvest")
 
-ggplot(data = hanpp_crop_reshape, aes(fill=Crop, y = HANPP_Harvest, x = County)) + geom_bar(position = "stack", stat = "identity")
+ggplot(data = hanpp_crop_reshape, aes(fill = Crop, 
+                                      y = HANPP_Harvest, 
+                                      x = County)) + 
+  geom_bar(position = "stack", stat ="identity")
 ```
 
+Fix some things to make the chart better
 Change legend names (by changing the factor level names in the dataframe)
 ```{r}
 #make them into character instead of factor
@@ -95,44 +106,51 @@ hanpp_crop_final$Crop <- factor(hanpp_crop_final$Crop)
 print(hanpp_crop_final)
 
 #Plot this new stacked bar chart
-ggplot(data = hanpp_crop_final, aes(fill=Crop, y = HANPP_Harvest, x = County)) + geom_bar(position = "stack", stat = "identity")
+ggplot(data = hanpp_crop_final, aes(fill=Crop, 
+                                    y = HANPP_Harvest, 
+                                    x = County)) + 
+  geom_bar(position = "stack", stat = "identity")
 ```
 
 Customize the bar chart colors
 ```{r}
-ggplot(data = hanpp_crop_final, aes(fill=Crop, y = HANPP_Harvest, x = County)) + geom_bar(position = "stack", stat = "identity") + scale_fill_manual(values = c("#FFD700","#663300", "#006400", "#ff0000"))
-```
-
-test data
-```{r}
-specie <- c(rep("sorgho" , 3) , rep("poacee" , 3) , rep("banana" , 3) , rep("triticum" , 3) )
-condition <- rep(c("normal" , "stress" , "Nitrogen") , 4)
-value <- abs(rnorm(12 , 0 , 15))
-data <- data.frame(specie,condition,value)
+ggplot(data = hanpp_crop_final, aes(fill = Crop, 
+                                    y = HANPP_Harvest, 
+                                    x = County)) + 
+  geom_bar(position = "stack", stat = "identity") + 
+  scale_fill_manual(values = c("#FFD700","#663300", "#006400", "#ff0000"))
 ```
 
 Improve the titles and axis lables
 ```{r}
-ggplot(data = hanpp_crop_final, aes(fill=Crop, y = HANPP_Harvest, x = County)) + geom_bar(position = "stack", stat = "identity") + scale_fill_manual(values = c("#FFD700","#663300", "#006400", "#ff0000")) +ggtitle("HANPP Harvest in Alabama Counties") + ylab("HANPP Harvest (g C/m^2/year)")
+ggplot(data = hanpp_crop_final, aes(fill=Crop, 
+                                    y = HANPP_Harvest, 
+                                    x = County)) + 
+  geom_bar(position = "stack", stat = "identity") + 
+  scale_fill_manual(values = c("#FFD700","#663300", "#006400", "#ff0000")) + 
+  ggtitle("HANPP Harvest in Alabama Counties") + 
+  ylab("HANPP Harvest (g C/m^2/year)")
 ```
+That looks good, we have the basics of how we'll want our ggplot to look
+
 
 ######## Make bar graphs with the master excel sheet ########
-
+Now we use the real data from whole excel sheet and format it to look like this 
 ```{r}
 #try with a single county
 #read in the entire csv
-hanpp_master <- read.csv("C://Users//Kaeli//Documents//HANPP//data//HANPP_general//Master_HANPP_no_units.csv", header = TRUE)
-head(hanpp_master)
+hanpp_main <- read.csv("C://Users//Kaeli//Documents//HANPP//data//HANPP_general//Master_HANPP_no_units.csv", header = TRUE)
+head(hanpp_main)
+#it has way too many columns we need to only filter what we need
+
+#we eventually want to get it to work with every county
+#But for now we'll just use one county
 
 #filter out the county that you want
-ALABAMA_AUTAUGA_2012 <- hanpp_master %>% 
+ALABAMA_AUTAUGA_2012 <- hanpp_main %>% 
   filter(State_County == "ALABAMA_AUTAUGA")
+
 head(ALABAMA_AUTAUGA_2012)
-
-library(tidyselect)
-
-ALABAMA_AUTAUGA_2012 <- ALABAMA_AUTAUGA_2012 %>% 
-  dplyr::select(Corn.Grain.2, Corn.Silage.2, Winter.Wheat.2, Spring.Wheat.Durum.2, Spring.Wheat.Excluding.Durum.2, Soybeans.2, Hay.Alfalfa.2, Cotton.Pima.2, Cotton.Upland.2, Sorghum.2, Other.Crops.2, Total.Crops.2, Hardwood.2, Softwood.2, Total.Timber.2, BLM.Grazing.2, USFS.Grazing.2, Private.Grazing.Land.2, Total.Grazing.2, X.2, Corn.Grain.8, Corn.Silage.8, Winter.Wheat.8, Spring.Wheat.Durum.8, Spring.Wheat.Excluding.Durum.8, Soybeans.8, Hay.Alfalfa.8, Cotton.Pima.8, Cotton.Upland.8, Sorghum.8, Other.Crops.8, Total.Crops.8, Hardwood.8, Softwood.8, Total.Timber.8, BLM.Grazing.8, USFS.Grazing.8, Private.Grazing.Land.8, Total.Crops.8, X.8, Corn.Grain.9, Corn.Silage.9, Winter.Wheat.9, Spring.Wheat.Durum.9, Spring.Wheat.Excluding.Durum.9, Soybeans.9, Hay.Alfalfa.9, Cotton.Pima.9, Cotton.Upland.9, Sorghum.9, Other.Crops.9, Total.Crops.9, Hardwood.9, Softwood.9, Total.Timber.9, BLM.Grazing.9, USFS.Grazing.9, Private.Grazing.Land.9, Total.Grazing.9, X.9, Corn.Grain.10, Corn.Silage.10, Winter.Wheat.10, Spring.Wheat.Durum.10, Spring.Wheat.Excluding.Durum.10, Soybeans.10, Hay.Alfalfa.10, Cotton.Pima.10, Cotton.Upland.10, Sorghum.10, Other.Crops.10, Total.Crops.10, Hardwood.10, Softwood.10, Total.Timber.10, BLM.Grazing.10, USFS.Grazing.10, Private.Grazing.Land.10, Total.Grazing.10, X.10, Corn.Grain.11, Corn.Silage.11, Winter.Wheat.11, Spring.Wheat.Durum.11, Spring.Wheat.Excluding.Durum.11, Soybeans.11, Hay.Alfalfa.11, Cotton.Pima.11, Cotton.Pima.11, Cotton.Upland.11, Sorghum.11, Other.Crops.11, Total.Crops.11, Hardwood.11, Softwood.11, Total.Timber.11, BLM.Grazing.11, USFS.Grazing.11, Private.Grazing.Land.11, Total.Crops.11, X.11)
 
 #This selection was too much, narrow down the actual columns you need
 #Take out columns only in the units of g m^2
@@ -143,9 +161,15 @@ head(ALABAMA_AUTAUGA_2012)
 
 ALABAMA_AUTAUGA_2012 <- ALABAMA_AUTAUGA_2012 %>% 
   dplyr::select(Corn.Grain.2, Corn.Silage.2, Winter.Wheat.2, Spring.Wheat.Durum.2, Spring.Wheat.Excluding.Durum.2, Soybeans.2, Hay.Alfalfa.2, Cotton.Pima.2, Cotton.Upland.2, Sorghum.2, Other.Crops.2, Total.Crops.2, Hardwood.2, Softwood.2, Total.Timber.2, BLM.Grazing.2, USFS.Grazing.2, Private.Grazing.Land.2, Total.Grazing.2, X.2, X.8, X.9, X.10, X.11)
-head(ALABAMA_AUTAUGA_2012)
 
+head(ALABAMA_AUTAUGA_2012)
+#good now we have one county and all the columns that we need
+```
+
+Now we need to fix this data
+```{r}
 #rename the columns
+#Give them readable names because these will show up on the final plot
 names(ALABAMA_AUTAUGA_2012)[names(ALABAMA_AUTAUGA_2012) == "Corn.Grain.2"] <- "Corn Grain"
 names(ALABAMA_AUTAUGA_2012)[names(ALABAMA_AUTAUGA_2012) == "Corn.Silage.2"] <- "Corn Silage"
 names(ALABAMA_AUTAUGA_2012)[names(ALABAMA_AUTAUGA_2012) == "Winter.Wheat.2"] <- "Winter Wheat"
@@ -170,11 +194,42 @@ names(ALABAMA_AUTAUGA_2012)[names(ALABAMA_AUTAUGA_2012) == "X.8"] <- "HANPP Harv
 names(ALABAMA_AUTAUGA_2012)[names(ALABAMA_AUTAUGA_2012) == "X.9"] <- "HANPP Harvest Unused"
 names(ALABAMA_AUTAUGA_2012)[names(ALABAMA_AUTAUGA_2012) == "X.10"] <- "HANPP Harvest Aboveground"
 names(ALABAMA_AUTAUGA_2012)[names(ALABAMA_AUTAUGA_2012) == "X.11"] <- "HANPP Harvest Belowground"
+
+#check to see if this worked
 head(ALABAMA_AUTAUGA_2012)
 
 #Make a column for types of HANPP and add it (this will be the x axis)
 
 #Add the different values into the column
 
+#We need a column for the x axis (different names of what we want each of the columns to be)
+#a column for the different sections in each stacked bar chart, aka all of the current columns have to go into one column
+#and a column for each of the numberical measurements of HANPP in gC.m2.year
+
+```
+
+#### Cache valley
+I could not figure out how to do this with the data so instead I got one county and manually made a csv
+that looks like how I eventually want each county to look
+```{r}
+#read in the data
+hanpp_cache <- read.csv("C://Users//Kaeli//Documents//HANPP//data//HANPP_general//bar_chart_test_cache.csv", header = TRUE)
+
+#check if it's correct
+head(hanpp_cache)
+```
+#Make the plots
+```{r}
+ggplot(data = hanpp_cache, aes(fill=Sections, 
+                               y = gC.m2.year, 
+                               x = Types_of_HANPP)) + 
+  geom_bar(position = "stack", stat = "identity", show.legend = FALSE) + 
+  #scale_fill_manual(values = c("#FFC300","#D06A0F", "#F1A25B", "#4AB617", "#715005", "#C8C7C4", "#6F6F6E", "#424140", "", )) +
+  ggtitle("HANPP Harvest in Cache County") + 
+  ylab("HANPP Harvest (g C/m^2/year)")
+
+#why are the bars out of order?
+#How to know how to assign the correct colors?
+#But it's looking closer to what I need
 ```
 

@@ -1,0 +1,26 @@
+{
+    "id": "6C9B9DA8",
+    "path": "~/HANPP/reproducible_science/bookdown/bookdown_project/01-intro.Rmd",
+    "project_path": "01-intro.Rmd",
+    "type": "r_markdown",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1619671925629.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "cursorPosition": "246,0",
+        "scrollLine": "234",
+        "last_setup_crc32": "5F75C0E0bb338d19",
+        "working_dir": "project"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1619718601,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1619718601199,
+    "read_only": false,
+    "read_only_alternatives": []
+}
