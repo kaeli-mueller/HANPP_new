@@ -27,3 +27,4 @@ figures/
 *.csv
 !docs/*.png
 !docs/*.jpg
+!docs/**/*.png

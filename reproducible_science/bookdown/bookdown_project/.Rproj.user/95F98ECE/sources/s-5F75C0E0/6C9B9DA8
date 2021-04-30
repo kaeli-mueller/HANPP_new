@@ -3,15 +3,15 @@
     "path": "~/HANPP/reproducible_science/bookdown/bookdown_project/01-intro.Rmd",
     "project_path": "01-intro.Rmd",
     "type": "r_markdown",
-    "hash": "2072402354",
+    "hash": "0",
     "contents": "",
     "dirty": false,
     "created": 1619671925629.0,
     "source_on_save": false,
     "relative_order": 1,
     "properties": {
-        "cursorPosition": "15,25",
-        "scrollLine": "4",
+        "cursorPosition": "199,32",
+        "scrollLine": "198",
         "last_setup_crc32": "5F75C0E0bb338d19",
         "working_dir": "project"
     },
