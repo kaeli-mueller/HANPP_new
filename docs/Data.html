@@ -24,7 +24,7 @@
 <meta name="author" content="Kaeli Mueller" />
 
 
-<meta name="date" content="2021-04-30" />
+<meta name="date" content="2021-05-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -164,7 +164,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>In this section I will be going through the steps to change the form of the data so that it is compatible with the ggplot syntax to make bar charts. I will be using tidyverse functions, as well as a specific function from the <code>janitor</code> library.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="Data.html#cb5-1"></a><span class="kw">library</span>(tidyverse)</span>
 <span id="cb5-2"><a href="Data.html#cb5-2"></a><span class="kw">library</span>(janitor)</span></code></pre></div>
-<p>I read in the raw data, which is in a large confusing spreadsheet. This spreadsheet is also incomplete, it doesn’t contain all the needed data for the grazing sections. But we will make the plots look how they should and the code will work for the data when I do get it. I skip the very first line because it contains titles in merged cells. The <code>janitor_names</code> function is a really easy way to make names with unfortunate spaces in them into one character string so R can understand it. With this spreadsheet, it’s also important to make sure we select the right columns. There’s no shortcut around this, we just have to count the number of columns to make sure we are selecting the correct information.</p>
+<p>I read in the raw data, which is in a large spreadsheet. This spreadsheet is incomplete, it doesn’t currently contain all the needed data for the grazing sections. But we will make the plots look how they should and the code will work for the data when I do get it. I skip the very first line because it contains titles in merged cells. The <code>janitor_names</code> function is a really easy way to make names with spaces in them into one character string so R can understand it. With this spreadsheet, it’s also important to make sure we select the right columns. There’s no shortcut around this, we just have to count the number of columns to make sure we are selecting the correct information.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="Data.html#cb6-1"></a>hanpp &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;C:/Users/Kaeli/Documents/HANPP/hanpp_bar_graphs/HANPP_main_updated_2012.csv&quot;</span>, <span class="dt">skip =</span> <span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb6-2"><a href="Data.html#cb6-2"></a><span class="st">  </span>janitor<span class="op">::</span><span class="kw">clean_names</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb6-3"><a href="Data.html#cb6-3"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(county<span class="op">:</span>year, </span>
