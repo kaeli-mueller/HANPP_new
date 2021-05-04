@@ -82,7 +82,7 @@ library(tidyverse)
 library(janitor)
 ```
 
-I read in the raw data, which is in a large confusing spreadsheet. This spreadsheet is also incomplete, it doesn't contain all the needed data for the grazing sections. But we will make the plots look how they should and the code will work for the data when I do get it. I skip the very first line because it contains titles in merged cells. The `janitor_names` function is a really easy way to make names with unfortunate spaces in them into one character string so R can understand it. With this spreadsheet, it's also important to make sure we select the right columns. There's no shortcut around this, we just have to count the number of columns to make sure we are selecting the correct information.
+I read in the raw data, which is in a large spreadsheet. This spreadsheet is incomplete, it doesn't currently contain all the needed data for the grazing sections. But we will make the plots look how they should and the code will work for the data when I do get it. I skip the very first line because it contains titles in merged cells. The `janitor_names` function is a really easy way to make names with spaces in them into one character string so R can understand it. With this spreadsheet, it's also important to make sure we select the right columns. There's no shortcut around this, we just have to count the number of columns to make sure we are selecting the correct information.
 ```{r rawdatatwo, warning = FALSE}
 hanpp <- read_csv("C:/Users/Kaeli/Documents/HANPP/hanpp_bar_graphs/HANPP_main_updated_2012.csv", skip = 1) %>% 
   janitor::clean_names() %>% 
